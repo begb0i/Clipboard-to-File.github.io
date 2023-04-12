@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <link rel="shortcut icon" href="ICON.png" type="image/x-icon">
+<head>
+  <title>Clipboard to File</title>
+</head>
+<body>
+
+<div class="wrapper">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+</div>
+
+<heading>
+  <h1>Clipboard to File</h1>
+  <p>Paste the contents of your clipboard below:</p>
+</heading>
+
+  <div class="container">
+    <textarea id="clipboardData" class="clipboardData" placeholder="Type your text here..." rows="4" cols="50"></textarea>
+  </div>
+
+<br>
+  
+  
+<div class="button-container">
+    <button class="paste" onclick="pasteFromClipboard()">Paste from Clipboard</button>
+    <button class="bruh" onclick="saveTextAsFile()">Download as TXT</button>
+    <button class="bruh" onclick="saveDocAsFile()">Download as DOC</button>
+    <button class="bruh" onclick="savePdfAsFile()">Download as PDF</button>
+  </div>
+  
+  <style>
+body {
+    font-family: 'Ubuntu';
+    background: radial-gradient(circle,#24246e,#06051f);
+    color: white;
+
+}
+    .paste{
+      display: inline-block;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: #353535;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      
+    }
+    .bruh {
+      display: inline-block;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      color: rgb(0, 0, 0);
+      background-color: #fdfdfd;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+    .button-container{
+      text-align: center;
+      margin-top: 80px;
+    }
+    heading {
+    font-family: system-ui, sans-serif;
+    font-size: 3.5rem;
+    cursor: pointer;
+    font-weight: bold;  
+    border: none;
+    text-align: center;
+    }
+ 
+    p{
+      font-size: 40px;
+    }
+
+    /* Add your preferred styles for the textarea here */
+    .clipboardData {
+      border: none;
+      border-radius: 10px;
+      background-color: #f8f8f8;
+      padding: 15px;
+      font-size: 16px;
+      color: #333;
+      width: 950px;
+      height: 200px;
+      resize: none;
+      outline: none;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Add any additional styles for the container or page layout */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 10vh;
+      padding-top: 50px;
+    }
+
+    .wrapper span{
+    position: fixed;
+    top: -120px;
+    height: 50px;
+    width: 50px;
+    z-index: -1;
+    animation: animate 10s linear infinite;    
+}
+.wrapper span:nth-child(1){
+    left: 60px;
+    animation-delay:0.6s;
+    border: 5px solid cyan;
+}
+.wrapper span:nth-child(2){
+    left: 60%;
+    animation-delay: 3s;
+    width: 60px;
+    height: 60px;
+    background: #ff4293;
+}
+.wrapper span:nth-child(3){
+    left: 20%;
+    animation-delay: 2s;
+    border: 5px solid #fff;    
+}
+.wrapper span:nth-child(4){
+    left: 30%;
+    animation-delay: 5s;
+    width: 80px;
+    height: 80px;
+    background: #befb46;
+}
+.wrapper span:nth-child(5){
+    left: 40%;
+    animation-delay: 1s;
+    border: 5px solid #ff4293;
+}
+.wrapper span:nth-child(6){
+    left: 50%;
+    animation-delay: 7s;
+    border: 5px solid deepskyblue;
+}
+.wrapper span:nth-child(7){
+    left: 60%;
+    animation-delay: 6s;
+    width: 100px;
+    height: 100px;
+    background: #ffd59e;
+}
+.wrapper span:nth-child(8){
+    left: 70%;
+    animation-delay: 8s;
+    border: 5px solid #befb46;
+}
+.wrapper span:nth-child(9){
+    left: 80%;
+    animation-delay: 6s;
+    width: 90px;
+    height: 90px;
+    background: cyan;
+}
+.wrapper span:nth-child(10){
+    left: 90%;
+    animation-delay: 4s;
+    border: 5px solid #fff;    
+}
+
+.banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.content h2{
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #fff;
+    font-family: montserrat;
+    font-size: 80px;
+    text-transform: uppercase;
+    letter-spacing: 12px;
+    text-align: center;
+    line-height: 0.9;
+}
+.content h2 b{
+    -webkit-text-fill-color: transparent;
+    font-size: 65px;
+}
+@keyframes animate{
+    0%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    80%{
+        opacity: 0.7;
+    }
+    100%{
+        transform: translateY(800px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+  </style>
+
+  <script>
+    function pasteFromClipboard() {
+    navigator.clipboard.readText()
+                .then(text => {
+                    document.getElementById('clipboardData').value = text;
+                })
+                .catch(err => {
+                    console.error('Failed to read clipboard contents: ', err);
+                });
+        }
+
+    // Function to save clipboard data as text file
+    function saveTextAsFile() {
+      var clipboardData = document.getElementById('clipboardData').value;
+      var blob = new Blob([clipboardData], {type: 'text/plain;charset=utf-8'});
+      saveAs(blob, 'clipboard_data.txt');
+    }
+
+    // Function to save clipboard data as doc file
+    function saveDocAsFile() {
+      var clipboardData = document.getElementById('clipboardData').value;
+      var blob = new Blob([clipboardData], {type: 'application/msword'});
+      saveAs(blob, 'clipboard_data.doc');
+    }
+
+    // Function to save clipboard data as pdf file
+    function savePdfAsFile() {
+      var clipboardData = document.getElementById('clipboardData').value;
+      var blob = new Blob([clipboardData], {type: 'application/pdf'});
+      saveAs(blob, 'clipboard_data.pdf');
+    }
+
+    // Function to trigger file download
+    function saveAs(blob, fileName) {
+      var downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = fileName;
+      downloadLink.click();
+    }
+  </script>
+</body>
+</html>
